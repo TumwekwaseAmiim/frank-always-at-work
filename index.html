@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hon. Frank Tumwebaze - After Elections</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+ <h1>💕Frank Tumwebaze – Taking Action Immediately After Elections💕</h1>
+</header>
+
+<section id="profile" class="section">
+  <h2>Profile</h2>
+  <img src="images/frank-profile.jpeg" alt="Frank Profile" class="profile-img">
+  <p>Hon. Frank Tumwebaze is a hardworking and patriotic leader, committed to driving development in Kibale East-Kamwenge-Uganda and improving the lives of its residents.🙏🙏</p>
+</section>
+
+<section id="events" class="section">
+  <h2>Key Events After Elections</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="images/frank-at-arrival.jpg" alt="Frank Tumwebaze arriving to meet residents" loading="lazy">
+      <div class="card-content">
+        <h3>Arrival Event</h3>
+        <p>At his arrival, Hon. Frank Tumwebaze began by greeting fellow leaders, starting with Hon. Joseph Karungi, before engaging with residents and community leaders immediately after the elections.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/frank with fellow-district-leaders-at lunch.jpg" alt="Frank Tumwebaze having lunch with district leaders" loading="lazy">
+      <div class="card-content">
+        <h3>Lunch with District Leaders</h3>
+        <p>Hon. Frank Tumwebaze, accompanied by Woman MP Hon. Sylvia Bahireira and District LCV Hon. Joseph Karungi</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/metting-residents.jpg" alt="Frank Tumwebaze meeting residents in Kibale East" loading="lazy">
+      <div class="card-content">
+        <h3>Meeting Residents</h3>
+        <p>Hon. Frank Tumwebaze engaged with residents in Nkoma Subcounty, where people were clearly attentive and actively listening to his message.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/ntonwa-deputyhk-and-students.jpg" alt="Ntonwa launch with deputy and students" loading="lazy">
+      <div class="card-content">
+        <h3>Ntonwa Event</h3>
+        <p>Participation of deputy and students at Ntonwa launch program.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="videos" class="section">
+  <h2>Videos</h2>
+  <div class="video-section">
+    <div class="video-wrapper">
+      <video id="video1" controls preload="metadata">
+        <source src="videos/frank at bisozi ss3.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-controls">
+        <button onclick="toggleVideo('video1', 'play')">Play</button>
+        <button onclick="toggleVideo('video1', 'stop')">Stop</button>
+      </div>
+    </div>
+    <div class="video-wrapper">
+      <video id="video2" controls preload="metadata">
+        <source src="videos/ntonwa 2 final2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-controls">
+        <button onclick="toggleVideo('video2', 'play')">Play</button>
+        <button onclick="toggleVideo('video2', 'stop')">Stop</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="thank-voters" class="section">
+  <h2>#FrankAtWork <br>#FrankWorks</h2>
+
+  <!-- Share Button -->
+  <button id="shareButton">Share</button>
+
+  <!-- Thank Voters Button -->
+  <button id="thankButton">Click to Listen</button>
+  <audio id="thankAudio" src="audio/win-song.mp3"></audio>
+</section>
+
+<footer>
+  <p>&copy; 2026 Kibale East, Uganda. All rights reserved.</p>
+</footer>
+
+<script>
+// Video play/stop functions
+function toggleVideo(id, action) {
+  const video = document.getElementById(id);
+  if(action === 'play') video.play();
+  if(action === 'stop') {
+    video.pause();
+    video.currentTime = 0;
+  }
+}
+
+// Thank voters audio
+const thankButton = document.getElementById('thankButton');
+const thankAudio = document.getElementById('thankAudio');
+
+thankButton.addEventListener('click', () => {
+  if(thankAudio.paused){
+    thankAudio.play();
+    thankButton.textContent = "Playing...";
+    thankButton.classList.add('active');
+  } else {
+    thankAudio.pause();
+    thankButton.textContent = "Click to Listen";
+    thankButton.classList.remove('active');
+  }
+});
+
+// Reset button after audio ends
+thankAudio.addEventListener('ended', () => {
+  thankButton.textContent = "Click to Listen";
+  thankButton.classList.remove('active');
+});
+
+// Pause other videos when one plays
+const allVideos = document.querySelectorAll('.video-wrapper video');
+allVideos.forEach(video => {
+  video.addEventListener('play', () => {
+    allVideos.forEach(otherVideo => {
+      if (otherVideo !== video) {
+        otherVideo.pause();
+        otherVideo.currentTime = 0;
+      }
+    });
+  });
+});
+
+// Share Button functionality (native mobile share)
+const shareButton = document.getElementById('shareButton');
+
+shareButton.addEventListener('click', async () => {
+  shareButton.classList.add('active');
+  setTimeout(() => shareButton.classList.remove('active'), 1000);
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'Hon. Frank Tumwebaze - Kibale East',
+        text: 'Checkout Hon. Frank actions immediately after elections!',
+        url: window.location.href
+      });
+      alert('Thanking for loving Hon. Frank!');
+    } catch (err) {
+      console.error('Share canceled or failed', err);
+    }
+  } else {
+    alert('Sharing is not supported on this device/browser. Please try on mobile.');
+  }
+});
+</script>
+
+</body>
+</html>
